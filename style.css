@@ -1,0 +1,246 @@
+:root {
+  --grid-size: 4;
+  --cell-gap: 12px;
+  --board-padding: 12px;
+  --board-size: 500px;
+  --cell-size: calc((var(--board-size) - (2 * var(--board-padding)) - ((var(--grid-size) - 1) * var(--cell-gap))) / var(--grid-size));
+
+  --color-bg: #faf8ef;
+  --color-board: #bbada0;
+  --color-cell-empty: #cdc1b4;
+  --color-text-dark: #776e65;
+  --color-text-light: #f9f6f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 520px) {
+  :root {
+    --board-size: 340px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color: var(--color-text-dark);
+}
+
+.container {
+  width: var(--board-size);
+  max-width: 100%;
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.scores {
+  display: flex;
+  gap: 8px;
+}
+
+.score-box {
+  background: var(--color-board);
+  color: var(--color-text-light);
+  border-radius: 6px;
+  padding: 8px 16px;
+  min-width: 64px;
+  text-align: center;
+}
+
+.score-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.score-value {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.instructions {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.new-game-btn,
+.try-again-btn {
+  background: #8f7a66;
+  color: var(--color-text-light);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.new-game-btn:hover,
+.try-again-btn:hover {
+  background: #9c8879;
+}
+
+.board-wrapper {
+  position: relative;
+}
+
+.board {
+  position: relative;
+  width: var(--board-size);
+  height: var(--board-size);
+  max-width: 100%;
+  background: var(--color-board);
+  border-radius: 8px;
+  padding: var(--board-padding);
+}
+
+.grid-cells {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  gap: var(--cell-gap);
+  padding: var(--board-padding);
+}
+
+.grid-cell {
+  background: var(--color-cell-empty);
+  border-radius: 6px;
+}
+
+.tile-container {
+  position: absolute;
+  inset: 0;
+  padding: var(--board-padding);
+}
+
+.tile {
+  position: absolute;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  background-color: #eee4da;
+  color: var(--color-text-dark);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: top 100ms ease-in-out, left 100ms ease-in-out;
+  z-index: 2;
+}
+
+.tile-new {
+  animation: tile-appear 150ms ease-in-out;
+}
+
+.tile-merged {
+  animation: tile-pop 150ms ease-in-out;
+  z-index: 3;
+}
+
+@keyframes tile-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes tile-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*
+  Tile color/image lookup by value.
+  Each rule points at assets/tiles/<value>.png as a background-image.
+  Until an image file exists at that path the background is simply not
+  shown and the background-color fallback below is used instead, so
+  images can be dropped in later with zero code changes.
+*/
+.tile-2 { background-color: #eee4da; background-image: url("assets/tiles/2.png"); }
+.tile-4 { background-color: #ede0c8; background-image: url("assets/tiles/4.png"); }
+.tile-8 { background-color: #f2b179; color: var(--color-text-light); background-image: url("assets/tiles/8.png"); }
+.tile-16 { background-color: #f59563; color: var(--color-text-light); background-image: url("assets/tiles/16.png"); }
+.tile-32 { background-color: #f67c5f; color: var(--color-text-light); background-image: url("assets/tiles/32.png"); }
+.tile-64 { background-color: #f65e3b; color: var(--color-text-light); background-image: url("assets/tiles/64.png"); }
+.tile-128 { background-color: #edcf72; color: var(--color-text-light); font-size: 1.5rem; background-image: url("assets/tiles/128.png"); }
+.tile-256 { background-color: #edcc61; color: var(--color-text-light); font-size: 1.5rem; background-image: url("assets/tiles/256.png"); }
+.tile-512 { background-color: #edc850; color: var(--color-text-light); font-size: 1.5rem; background-image: url("assets/tiles/512.png"); }
+.tile-1024 { background-color: #edc53f; color: var(--color-text-light); font-size: 1.25rem; background-image: url("assets/tiles/1024.png"); }
+.tile-2048 { background-color: #edc22e; color: var(--color-text-light); font-size: 1.25rem; background-image: url("assets/tiles/2048.png"); }
+.tile-super { background-color: #3c3a32; color: var(--color-text-light); font-size: 1.25rem; background-image: url("assets/tiles/super.png"); }
+
+.message-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(238, 228, 218, 0.73);
+  border-radius: 8px;
+  z-index: 10;
+}
+
+.message-overlay.hidden {
+  display: none;
+}
+
+.message-text {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-dark);
+}
