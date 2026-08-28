@@ -208,11 +208,11 @@ body {
   shown and the background-color fallback below is used instead, so
   images can be dropped in later with zero code changes.
 */
-.tile-2 { background-color: #eee4da; background-image: url("assets/tiles/2.png"); }
-.tile-4 { background-color: #ede0c8; background-image: url("assets/tiles/4.png"); }
-.tile-8 { background-color: #f2b179; color: var(--color-text-light); background-image: url("assets/tiles/8.png"); }
-.tile-16 { background-color: #f59563; color: var(--color-text-light); background-image: url("assets/tiles/16.png"); }
-.tile-32 { background-color: #f67c5f; color: var(--color-text-light); background-image: url("assets/tiles/32.png"); }
+.tile-2 { background-color: #eee4da; background-image: url("assets/tiles/2.jpg"); }
+.tile-4 { background-color: #ede0c8; background-image: url("assets/tiles/4.jpg"); }
+.tile-8 { background-color: #f2b179; color: var(--color-text-light); background-image: url("assets/tiles/8.jpg"); }
+.tile-16 { background-color: #f59563; color: var(--color-text-light); background-image: url("assets/tiles/16.jpg"); }
+.tile-32 { background-color: #f67c5f; color: var(--color-text-light); background-image: url("assets/tiles/32.jpg"); }
 .tile-64 { background-color: #f65e3b; color: var(--color-text-light); background-image: url("assets/tiles/64.png"); }
 .tile-128 { background-color: #edcf72; color: var(--color-text-light); font-size: 1.5rem; background-image: url("assets/tiles/128.png"); }
 .tile-256 { background-color: #edcc61; color: var(--color-text-light); font-size: 1.5rem; background-image: url("assets/tiles/256.png"); }
