@@ -15,10 +15,27 @@
   const messageOverlay = document.getElementById("message-overlay");
   const messageText = document.getElementById("message-text");
 
+  function readBestScore() {
+    try {
+      return Number(localStorage.getItem(STORAGE_KEY_BEST)) || 0;
+    } catch (err) {
+      return 0;
+    }
+  }
+
+  function writeBestScore(value) {
+    try {
+      localStorage.setItem(STORAGE_KEY_BEST, String(value));
+    } catch (err) {
+      // Storage unavailable (e.g. some browsers restrict it for local
+      // file:// pages) - best score just won't persist across reloads.
+    }
+  }
+
   /** @type {(number|null)[][]} */
   let grid = [];
   let score = 0;
-  let bestScore = Number(localStorage.getItem(STORAGE_KEY_BEST)) || 0;
+  let bestScore = readBestScore();
   let tileIdCounter = 0;
   let hasWon = false;
   let isGameOver = false;
@@ -36,11 +53,15 @@
     }
   }
 
+  const CELL_GAP_PX = 12;
+
   function getMetrics() {
-    const styles = getComputedStyle(document.documentElement);
-    const cellSize = parseFloat(styles.getPropertyValue("--cell-size"));
-    const gap = parseFloat(styles.getPropertyValue("--cell-gap"));
-    return { cellSize, gap };
+    const styles = getComputedStyle(tileContainerEl);
+    const paddingLeft = parseFloat(styles.paddingLeft) || 0;
+    const paddingRight = parseFloat(styles.paddingRight) || 0;
+    const innerWidth = tileContainerEl.clientWidth - paddingLeft - paddingRight;
+    const cellSize = (innerWidth - CELL_GAP_PX * (GRID_SIZE - 1)) / GRID_SIZE;
+    return { cellSize, gap: CELL_GAP_PX };
   }
 
   function getTilePosition(row, col) {
@@ -106,7 +127,7 @@
   function updateBestScore() {
     if (score > bestScore) {
       bestScore = score;
-      localStorage.setItem(STORAGE_KEY_BEST, String(bestScore));
+      writeBestScore(bestScore);
     }
   }
 
