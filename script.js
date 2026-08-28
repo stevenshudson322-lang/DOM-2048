@@ -64,11 +64,11 @@
     return { cellSize, gap: CELL_GAP_PX };
   }
 
-  function getTilePosition(row, col) {
-    const { cellSize, gap } = getMetrics();
+  function getTileBox(row, col, cellSize, gap) {
     return {
       left: col * (cellSize + gap),
       top: row * (cellSize + gap),
+      size: cellSize,
     };
   }
 
@@ -97,6 +97,7 @@
 
   function render(newTileCells, mergedCells) {
     tileContainerEl.innerHTML = "";
+    const { cellSize, gap } = getMetrics();
 
     for (let r = 0; r < GRID_SIZE; r++) {
       for (let c = 0; c < GRID_SIZE; c++) {
@@ -105,11 +106,12 @@
 
         const tile = document.createElement("div");
         tile.className = `tile ${tileClassForValue(value)}`;
-        tile.textContent = String(value);
 
-        const { left, top } = getTilePosition(r, c);
+        const { left, top, size } = getTileBox(r, c, cellSize, gap);
         tile.style.left = `${left}px`;
         tile.style.top = `${top}px`;
+        tile.style.width = `${size}px`;
+        tile.style.height = `${size}px`;
 
         const isNew = newTileCells && newTileCells.some((cell) => cell.r === r && cell.c === c);
         const isMerged = mergedCells && mergedCells.some((cell) => cell.r === r && cell.c === c);

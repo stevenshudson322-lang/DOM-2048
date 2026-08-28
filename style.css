@@ -3,7 +3,6 @@
   --cell-gap: 12px;
   --board-padding: 12px;
   --board-size: 500px;
-  --cell-size: calc((var(--board-size) - (2 * var(--board-padding)) - ((var(--grid-size) - 1) * var(--cell-gap))) / var(--grid-size));
 
   --color-bg: #faf8ef;
   --color-board: #bbada0;
@@ -122,8 +121,8 @@ body {
 .board {
   position: relative;
   width: var(--board-size);
-  height: var(--board-size);
   max-width: 100%;
+  aspect-ratio: 1 / 1;
   background: var(--color-board);
   border-radius: 8px;
   padding: var(--board-padding);
@@ -152,20 +151,12 @@ body {
 
 .tile {
   position: absolute;
-  width: var(--cell-size);
-  height: var(--cell-size);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   border-radius: 6px;
-  font-size: 1.75rem;
-  font-weight: 700;
   background-color: #eee4da;
-  color: var(--color-text-dark);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: top 100ms ease-in-out, left 100ms ease-in-out;
+  transition: top 100ms ease-in-out, left 100ms ease-in-out, width 100ms ease-in-out, height 100ms ease-in-out;
   z-index: 2;
 }
 
@@ -210,16 +201,16 @@ body {
 */
 .tile-2 { background-color: #eee4da; background-image: url("assets/tiles/2.jpg"); }
 .tile-4 { background-color: #ede0c8; background-image: url("assets/tiles/4.jpg"); }
-.tile-8 { background-color: #f2b179; color: var(--color-text-light); background-image: url("assets/tiles/8.jpg"); }
-.tile-16 { background-color: #f59563; color: var(--color-text-light); background-image: url("assets/tiles/16.jpg"); }
-.tile-32 { background-color: #f67c5f; color: var(--color-text-light); background-image: url("assets/tiles/32.jpg"); }
-.tile-64 { background-color: #f65e3b; color: var(--color-text-light); background-image: url("assets/tiles/64.jpg"); }
-.tile-128 { background-color: #edcf72; color: var(--color-text-light); font-size: 1.5rem; background-image: url("assets/tiles/128.jpg"); }
-.tile-256 { background-color: #edcc61; color: var(--color-text-light); font-size: 1.5rem; background-image: url("assets/tiles/256.png"); }
-.tile-512 { background-color: #edc850; color: var(--color-text-light); font-size: 1.5rem; background-image: url("assets/tiles/512.png"); }
-.tile-1024 { background-color: #edc53f; color: var(--color-text-light); font-size: 1.25rem; background-image: url("assets/tiles/1024.png"); }
-.tile-2048 { background-color: #edc22e; color: var(--color-text-light); font-size: 1.25rem; background-image: url("assets/tiles/2048.png"); }
-.tile-super { background-color: #3c3a32; color: var(--color-text-light); font-size: 1.25rem; background-image: url("assets/tiles/super.png"); }
+.tile-8 { background-color: #f2b179; background-image: url("assets/tiles/8.jpg"); }
+.tile-16 { background-color: #f59563; background-image: url("assets/tiles/16.jpg"); }
+.tile-32 { background-color: #f67c5f; background-image: url("assets/tiles/32.jpg"); }
+.tile-64 { background-color: #f65e3b; background-image: url("assets/tiles/64.jpg"); }
+.tile-128 { background-color: #edcf72; background-image: url("assets/tiles/128.jpg"); }
+.tile-256 { background-color: #edcc61; background-image: url("assets/tiles/256.png"); }
+.tile-512 { background-color: #edc850; background-image: url("assets/tiles/512.png"); }
+.tile-1024 { background-color: #edc53f; background-image: url("assets/tiles/1024.png"); }
+.tile-2048 { background-color: #edc22e; background-image: url("assets/tiles/2048.png"); }
+.tile-super { background-color: #3c3a32; background-image: url("assets/tiles/super.png"); }
 
 .message-overlay {
   position: absolute;
